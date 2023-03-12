@@ -1,0 +1,38 @@
+services:
+  heroku-cli:
+    build: ./heroku
+    env_file: ./heroku/.env
+  db:
+    build: ./sql
+    image: postgres
+    env_file: .env
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    expose:
+      - "5432"                                  
+    volumes:
+       # Copy SQL script to create tables.
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      # - ./sql/insert_sample.sql:/docker-entrypoint-initdb.d/insert_sample.sql
+      - ./sql/init_decks.sql:/docker-entrypoint-initdb.d/init_decks.sql
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: devapp
+    image: node:12
+    user: "node"                                
+    depends_on:
+      - db          
+    env_file: .env  
+    ports:
+        - "3000:3000"                    
+    volumes:
+      - ./src:/app/src               
+    command: "npm run testandrun"  
+
+volumes:
+  postgres-data: {}

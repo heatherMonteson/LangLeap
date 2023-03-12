@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+  <!-- Profile icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="../resources/css/index.css" rel="stylesheet">
+     <link rel="stylesheet" href="../resources/css/decks.css">
+
+    <title><%- page_title %></title>
+
+</head>
+<body>
+<%- include('../partials/user-navbar') %>
+
+<br><br><br><br><br>
+
+<div class="container text-center h-100">
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                Quiz Name
+            </div>
+        </div>
+        <div class="col-md-auto">
+          Best quiz attempt stat here
+        </div>
+        <div class="col-lg-auto">
+          Last quiz attempt stat here
+        </div>
+      </div>
+
+<!-- Repeat for varying deck types -->
+</div>
+
+
+  <%- include('../partials/footer') %>

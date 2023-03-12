@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%- page_title %></title>
+
+    <!-- Profile icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../resources/css/buildNewDeck.css">
+    <link href="../resources/css/index.css" rel="stylesheet">
+    <script src="../resources/js/buildNewDeck.js"></script>
+
+</head>
+
+<body>
+
+    <%- include('../partials/user-navbar') %>
+    <br><br><br><br><br>
+
+    <div class="card mt-50 mb-50">
+        <form name ="Form" action="/decks/create" method="post" onsubmit="validateForm()">
+            <div class="container">
+                
+                <!--Select new or existing deck onclick added dependent on selection-->
+                <div class="form-check form-group ">
+                    <h2>New Cards</h2>
+                </div>
+
+                <!-- <div class="form-check form-group">
+                    <input class="form-check-input"  onclick="formAdd('createNew',1); formAdd('selectOld',0);" type="radio" name="exampleRadios" id="newDeck" value="new" checked
+                    />
+                    <label class="form-check-label" for="newDeck">
+                      Create new deck
+                    </label>
+                  </div>
+
+                  <div class="form-check form-group">
+                    <input class="form-check-input" onclick="formAdd('selectOld',1); formAdd('createNew',0);" type="radio" name="exampleRadios" id="existingDeck" value="add">
+                    <label class="form-check-label">
+                      Add to existing deck 
+                    </label>
+                  </div> -->
+
+            <div class="form-group" id="createNew">
+                <input type="text" class="form-control" name="username" placeholder="Username">
+            </div>   
+
+            <!--new deck name-->
+             <div class="form-group" id="createNew">
+                <input type="text" class="form-control" name="deck_name" id="deck_name" placeholder="New Deck Name">
+            </div>
+
+            <!--Drop down of decks-->
+            <!--TODO: need to replace "Deck 1, Deck 2..." with input list of decks from database-->
+            <!-- <div class="form-group" id="selectOld" >
+                <select class="form-control" id="select_old">
+                    <option>Select Deck</option>
+                    <option>Deck 2</option>
+                    <option>Deck 3</option>
+                    <option>Deck 4</option>
+                </select>
+             </div> -->
+
+                <!--text box for copy and paste-->
+                <!-- TODO: pass file to make list -->
+                <div class="form-group input-group">
+                    <textarea class="form-control" id="newCardInput" name="text_input" rows="10" placeholder="Add text here"></textarea>
+                </div>
+            </div>
+
+            <!--Upload files: set to accept .pdf, .doc, .txt, and .docx
+                TODO: pass file to make list
+            <div class=" container form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="uploadFile">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="uploadFile"
+                        aria-describedby="inputGroupFileAddon01" accept=".pdf, .doc, .txt, .docx" >
+                    <label class="custom-file-label" for="uploadFile" id="uploadLable">Choose file</label>
+                </div>
+            </div>
+            -->
+
+            <!--submit-->
+            <div class="form-group container">
+                <button href="" type="submit" class="button btn btn-info ">Make my cards!</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

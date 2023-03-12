@@ -1,0 +1,105 @@
+Meeting zoom link:
+https://cuboulder.zoom.us/j/91352791900  
+
+############################################################
+
+Meeting 10 Date Tuesday 4/12/2022
+
+Did a standup, main discussion revolving around merge issue. 
+Decks were working and loading on initDecks branch but when put together with main it breaks.
+Wyatt reccommended git diff and reverting back to the branch if needed.
+Discussed presentation expectations.
+
+All team members present
+############################################################
+
+Meeting 9 Date Tuesday 4/5/2022
+
+Wyatt did not join. We did a quick standup. Discussed testing milestone.
+
+All team members present
+
+############################################################
+
+Meeting 8 Date Tuesday 3/29/2022
+
+Presentations will be on the 15th in recitation.
+Went through standup, brief for everyone.
+In general team is working on connecting front and back end.
+
+Missing Amandaliss--Covid related.
+
+############################################################
+
+Meeting 7 Date Tuesday 3/15/2022
+
+Went around and did standup. Amanda: quiz stats pages, brought up font sizing issue. 
+Heather: Working on styling pages. 
+Matt: Discussed APIs
+Beckett: Login and hashing, controlling private info--working with Joe
+Joe: Database layout pdf, get and post requests for make lists
+Max: Adding code to server.js to pull lists from DB to frontend
+
+April 11 is deadline
+
+Individual project is from 2 project types, use api to do something--simple 1-2 page website.
+
+All team members present
+
+############################################################
+
+Meeting 6 Date Tuesday 3/8/2022
+
+Quick standup meeting. Went around and shared progress. Talked a bit about hashing. 
+Wyatt reminded that milestone 4 is soon after the milestone 3 due date so keep an eye on that.
+
+
+############################################################
+
+Meeting 5 Date Tuesday 3/1/2022
+
+Did Milestone 3 demo with Wyatt. There was a panic with git shortly prior to meeting.
+Wyatt had some suggestions for how to make the docker-compose smoother. See lab 6 template.
+Showed off updated architecture diagram. Arrows go both ways.
+Wyatt mentioned pg promis
+Also maybe remove terms and privacy from sign up page.
+
+############################################################
+
+Meeting 4 Date: Tuesday 2/22/2022
+Met with Wyatt from 4:00 to 4:10
+
+Discussed upcoming milestone 3 expectations and demo. Went around and did more of a traditional standup. We have multiple people working on the backend and docker setup right now, Wyatt advised we focus more on frontend right now--we will be given docker resources later and we might as well wait.
+
+All team members present.
+
+############################################################
+
+Meeting 3 Date: Tuesday 2/15/2022
+Met with Wyatt from 4:00 to 4:05
+
+Wyatt advised us to get a foundation of the website started this week. Questions about database setup, database will run in container and we will see this in a future lab. It was a quick meeting this week.
+
+All team members present.
+
+############################################################
+
+Meeting 2 Date: Tuesday 2/8/2022
+
+Meeting with Wyatt from 4:00 to 4:15
+
+Began by discussing architecture plan from milestone 1. Wyatt brought up idea that instead of URL scraping we implement a text box where users are able to paste text to be "scraped" so they could copy the meat of websites themself. 
+Website does not interact with database directly, instead uses middle layer.
+Do not need apache. Add a front end, that plugs in to node.js, into architecture diagram. Frontend lives on browser, not a container.
+
+
+All team members present.
+
+############################################################
+
+Meeting 1 Date: Tuesday 2/1/2022
+
+Team met with Wyatt from 4:00 to 4:15
+Discussed potential project ideas: language flashcards, volunteer connections, and social networking for hobbies and activities.
+
+All team members present.

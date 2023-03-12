@@ -1,0 +1,222 @@
+-- Table: public.User
+
+-- DROP TABLE IF EXISTS public."User";
+
+CREATE TABLE IF NOT EXISTS public."User"
+(
+    "UserID" integer NOT NULL,
+    "Username" character varying(45) COLLATE pg_catalog."default" NOT NULL,
+    "Email" character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    "Password" character varying(45) COLLATE pg_catalog."default" NOT NULL,
+    "RegistrationDate" date NOT NULL,
+    "TotalCards" integer DEFAULT 0,
+    "TotalAttempts" integer DEFAULT 0,
+    "TotalCorrect" integer DEFAULT 0,
+    "TotalMistakes" integer DEFAULT 0,
+    "UserAccuracy" double precision DEFAULT 0.00,
+    "TotalWords" integer DEFAULT 0,
+    "AverageWordsPerDay" double precision DEFAULT 0.00,
+    "HighestStreak" integer DEFAULT 0,
+    "HighestRelativeImprovement" double precision DEFAULT 0.00,
+    CONSTRAINT "User_pkey" PRIMARY KEY ("UserID"),
+    CONSTRAINT "User_Password_key" UNIQUE ("Password"),
+    CONSTRAINT "User_UserID_key" UNIQUE ("UserID"),
+    CONSTRAINT "User_Username_key" UNIQUE ("Username")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."User"
+    OWNER to postgres;
+
+
+-- Table: public.SavedList
+
+-- DROP TABLE IF EXISTS public."SavedList";
+
+CREATE TABLE IF NOT EXISTS public."SavedList"
+(
+    "UserID" integer NOT NULL,
+    "ListID" integer NOT NULL,
+    "ListData" jsonb NOT NULL,
+    "TotalCards" integer NOT NULL,
+    "DateCreated" date NOT NULL,
+    "IsPublic" boolean DEFAULT false,
+    "TimesStudied" integer DEFAULT 0,
+    "ListMistakes" integer DEFAULT 0,
+    "ListAccuracy" double precision DEFAULT 0.00,
+    CONSTRAINT "SavedList_pkey" PRIMARY KEY ("UserID", "ListID"),
+    CONSTRAINT "SavedList_ListID_key" UNIQUE ("ListID"),
+    CONSTRAINT "SavedList_UserID_key" UNIQUE ("UserID"),
+    CONSTRAINT "SavedList_UserID_fkey" FOREIGN KEY ("UserID")
+        REFERENCES public."User" ("UserID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."SavedList"
+    OWNER to postgres;
+
+
+-- Table: public.PublicList
+
+-- DROP TABLE IF EXISTS public."PublicList";
+
+CREATE TABLE IF NOT EXISTS public."PublicList"
+(
+    "ListID" integer NOT NULL,
+    "SharedBy" integer NOT NULL,
+    "DateShared" date NOT NULL,
+    CONSTRAINT "PublicList_pkey" PRIMARY KEY ("ListID"),
+    CONSTRAINT "PublicList_ListID_key" UNIQUE ("ListID"),
+    CONSTRAINT "PublicList_ListID_fkey" FOREIGN KEY ("ListID")
+        REFERENCES public."SavedList" ("ListID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "PublicList_SharedBy_fkey" FOREIGN KEY ("SharedBy")
+        REFERENCES public."SavedList" ("UserID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."PublicList"
+    OWNER to postgres;
+
+
+-- Table: public.WordAccuracy
+
+-- DROP TABLE IF EXISTS public."WordAccuracy";
+
+CREATE TABLE IF NOT EXISTS public."WordAccuracy"
+(
+    "UserID" integer NOT NULL,
+    "Word" character varying(45) COLLATE pg_catalog."default" NOT NULL,
+    "DateFirstAttempted" date NOT NULL,
+    "TotalAttempts" integer DEFAULT 0,
+    "TotalCorrect" integer DEFAULT 0,
+    "TotalMistakes" integer DEFAULT 0,
+    "WordAccuracy" double precision DEFAULT 0.00,
+    "IsCommonlyMissed" boolean DEFAULT false,
+    CONSTRAINT "WordAccuracy_pkey" PRIMARY KEY ("UserID", "Word"),
+    CONSTRAINT "WordAccuracy_UserID_key" UNIQUE ("UserID"),
+    CONSTRAINT "WordAccuracy_Word_key" UNIQUE ("Word"),
+    CONSTRAINT "WordAccuracy_UserID_fkey" FOREIGN KEY ("UserID")
+        REFERENCES public."User" ("UserID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."WordAccuracy"
+    OWNER to postgres;
+
+
+-- Table: public.ListWordAccuracy
+
+-- DROP TABLE IF EXISTS public."ListWordAccuracy";
+
+CREATE TABLE IF NOT EXISTS public."ListWordAccuracy"
+(
+    "UserID" integer NOT NULL,
+    "ListID" integer NOT NULL,
+    "Word" character varying(45) COLLATE pg_catalog."default" NOT NULL,
+    "DateFirstAttempted" date NOT NULL,
+    "TotalAttempts" integer DEFAULT 0,
+    "TotalCorrect" integer DEFAULT 0,
+    "TotalMistakes" integer DEFAULT 0,
+    "WordAccuracy" double precision DEFAULT 0.00,
+    "IsCommonlyMissed" boolean DEFAULT false,
+    CONSTRAINT "ListWordAccuracy_pkey" PRIMARY KEY ("UserID", "ListID", "Word"),
+    CONSTRAINT "ListWordAccuracy_ListID_key" UNIQUE ("ListID"),
+    CONSTRAINT "ListWordAccuracy_UserID_key" UNIQUE ("UserID"),
+    CONSTRAINT "ListWordAccuracy_Word_key" UNIQUE ("Word"),
+    CONSTRAINT "ListWordAccuracy_ListID_fkey" FOREIGN KEY ("ListID")
+        REFERENCES public."SavedList" ("ListID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "ListWordAccuracy_UserID_fkey" FOREIGN KEY ("UserID")
+        REFERENCES public."User" ("UserID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "ListWordAccuracy_Word_fkey" FOREIGN KEY ("Word")
+        REFERENCES public."WordAccuracy" ("Word") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."ListWordAccuracy"
+    OWNER to postgres;
+
+-- Table: public.Session
+
+-- DROP TABLE IF EXISTS public."Session";
+
+CREATE TABLE IF NOT EXISTS public."Session"
+(
+    "UserID" integer NOT NULL,
+    "SessionID" integer NOT NULL,
+    "SessionDate" date NOT NULL,
+    "ListsViewed" integer[] DEFAULT ARRAY[]::integer[],
+    "TotalAttempts" integer DEFAULT 0,
+    "TotalCorrect" integer DEFAULT 0,
+    "TotalMistakes" integer DEFAULT 0,
+    "SessionAccuracy" double precision DEFAULT 0.0,
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("UserID", "SessionID"),
+    CONSTRAINT "Session_SessionID_key" UNIQUE ("SessionID"),
+    CONSTRAINT "Session_UserID_key" UNIQUE ("UserID"),
+    CONSTRAINT "Session_UserID_fkey" FOREIGN KEY ("UserID")
+        REFERENCES public."User" ("UserID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Session"
+    OWNER to postgres;
+
+
+-- Table: public.ListImprovement
+
+-- DROP TABLE IF EXISTS public."ListImprovement";
+
+CREATE TABLE IF NOT EXISTS public."ListImprovement"
+(
+    "UserID" integer NOT NULL,
+    "ListID" integer NOT NULL,
+    "SessionID" integer NOT NULL,
+    "AccuracyAdjustment" double precision DEFAULT 0.00,
+    CONSTRAINT "ListImprovement_pkey" PRIMARY KEY ("UserID", "ListID", "SessionID"),
+    CONSTRAINT "ListImprovement_ListID_key" UNIQUE ("ListID"),
+    CONSTRAINT "ListImprovement_SessionID_key" UNIQUE ("SessionID"),
+    CONSTRAINT "ListImprovement_UserID_key" UNIQUE ("UserID"),
+    CONSTRAINT "ListImprovement_ListID_fkey" FOREIGN KEY ("ListID")
+        REFERENCES public."SavedList" ("ListID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "ListImprovement_SessionID_fkey" FOREIGN KEY ("SessionID")
+        REFERENCES public."Session" ("SessionID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "ListImprovement_UserID_fkey" FOREIGN KEY ("UserID")
+        REFERENCES public."User" ("UserID") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."ListImprovement"
+    OWNER to postgres;

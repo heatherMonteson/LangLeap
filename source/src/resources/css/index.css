@@ -1,0 +1,26 @@
+html, body{
+    height:100%; /* important to vertically align the container */
+    margin:0;
+    padding:0;
+    /* background-color: rgb(178, 199, 199) !important; */
+    /* Background image made using canva */
+    background-image: url("../img/background.png") !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: cursive;
+}
+.navbar {
+    background: #518a4a !important;
+    font-family: cursive !important;
+    color: rgb(255, 255, 255) !important;
+    font-weight: bold;
+  }
+
+  /* nav bar text color */
+  /* .nav-link {
+    color: rgb(242, 242, 247) !important;
+    } */
+    
+  

@@ -1,0 +1,50 @@
+LANGLEAP STATISTICS!
+
+1.) GET => When loading card in study/quiz mode.
+
+In Users table:
+        - Increment TotalCards by 1 when card is loaded.
+        - If word has not been viewed before, increment TotalWords by 1. 
+
+
+2.) POST => When user guesses during quiz mode.
+
+In Users table:
+        - Increment TotalAttempts by 1 when user guesses.
+        - If guess is correct, increment TotalCorrect by 1.
+        - Else, increment TotalMistakes by 1.
+        - Update UserAccuracy by dividing TotalCorrect by TotalAttempts.
+        - If guess is correct, increment CurrentStreak by 1.
+        - Else, compare CurrentStreak with HighestStreak and update if necessary.
+
+// List stats per user.
+In SavedLists table:
+        - Increment ListAttempts by 1 when user guesses.
+        - If guess is correct, increment ListCorrect by 1.
+        - Else, increment ListMistakes by 1.
+        - Update ListAccuracy by dividing ListCorrect by ListAttempts.
+
+// Word stats per user.
+In WordAccuracies table:
+        - Increment WordAttempts by 1 when user guesses.
+        - If guess is correct, increment WordCorrect by 1.
+        - Else, increment WordMistakes by 1.
+        - Update UserAccuracy by dividing WordCorrect by WordAttempts.
+
+// Word stats per list.
+In ListWordAccuracies:
+        - Increment ListWordAttempts by 1 when user guesses.
+        - If guess is correct, increment ListWordCorrect by 1.
+        - Else, increment ListWordMistakes by 1.
+        - Update UserAccuracy by dividing ListWordCorrect by ListWordAttempts.
+
+
+3.) POST => When user enters study mode.
+
+In SavedLists table:
+        - Increment TimesStudied by 1 when study mode begins.
+
+4.) POST => When user enters quiz mode.
+
+In SavedLists table:
+        - Increment TimesQuizzed by 1 when quiz mode begins.

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%- page_title %></title>
+
+  <meta name="author" content="Codeconvey" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+  <link href="../resources/css/index.css" rel="stylesheet">
+  <link rel="stylesheet" href="../resources/css/profile.css">
+  <%- include('../partials/user-navbar') %>
+  <br><br><br>
+</head>
+
+<body>
+
+  <!--Credit for layout: https://codeconvey.com/html-code-for-student-profile-->
+<br><br>
+  <section>
+    <div class="rt-container">
+      <div class="col-rt-12">
+        <div class="Scriptcontent">
+
+          <!-- Student Profile -->
+          <div class="student-profile py-4">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card shadow-sm">
+                    <div class="card-header text-center">
+                      <img class="profile_img" src="../resources/img/logoNoWords.png" alt="Default User image">
+                      
+                      <!-- todo add user name -->
+                      <h3><%- userInfo.username %></h3>
+                    </div>
+                    <div class="card-body">
+                      
+                      <!-- todo: add name and number of decks  -->
+                      <p class="mb-0"><strong class="pr-1">Joined:</strong>
+
+                        <% 
+                          var dateString = userInfo.registrationdate;
+                          dateString = new Date(dateString).toUTCString();
+                          dateString = dateString.split(' ').slice(0, 4).join(' ');
+                        ;%> 
+
+                       <%- dateString %>
+                      </p>
+                      <p class="mb-0"><strong class="pr-1">Languages:</strong>Spanish</p>
+                      <p class="mb-0"><strong class="pr-1">Total Decks: </strong>
+                        <%- decks.length %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>My Favorite Decks</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                      <table class="table table-bordered">
+                        <div class="row">
+                          <div class="col-sm">
+                            <div class="container">
+                              <div class="card mb-3 card-body h-10rem h-xl-20rem text-center"
+                                style="max-width: 18rem;" id="topDecks">
+
+                                <div class="card-body">
+                                  <h5 class="card-title center"> <%- decks[2].listname %></h5>
+                                  <form class="form" action="" method="get">
+                                    <button type="button" onclick="launchStudy(this)" class="btn btn-info" id=" <%- decks[2].listid %> "> Study </button> 
+                                    <button type="button" onclick="launchQuiz(this)" class="btn btn-info" id=" <%- decks[2].listid %> "> Quiz </button> 
+                                  </form>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm">
+                            <div class="container">
+                              <div class="card mb-3 card-body h-10rem h-xl-20rem text-center"
+                                style="max-width: 18rem;" id="topDecks">
+
+                               
+                                <div class="card-body">
+                                  <h5 class="card-title center"> <%- decks[4].listname %> </h5>
+                                  <form class="form" action="" method="get">
+                                    <button type="button" onclick="launchStudy(this)" class="btn btn-info" id=" <%- decks[4].listid %>  "> Study </button> 
+                                    <button type="button" onclick="launchQuiz(this)" class="btn btn-info" id="<%- decks[4].listid %> "> Quiz </button>
+                                  </form>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                      </table>
+                    </div>
+                  </div>
+                  <div style="height: 26px"></div>
+                  <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Stats</h3>
+                    </div>
+                    <div class="col-8">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <tr>
+                            <th>
+                              <h5>Total Decks:</h5>
+                            </th>
+                            <td><%- decks.length %></td>
+                          </tr>
+                          <tr>
+                            <th>
+                              <h5>Attempts:</h5>
+                            </th>
+                            <!-- need stat call here-->
+                            <td><%- userInfo.totalattempts %></td>
+                          </tr>
+                          <tr>
+                            <th>
+                              <h5>Correct Guesses:</h5>
+                            </th>
+                            <!-- need stat call here-->
+                            <td><%- userInfo.totalcorrect %></td>
+                          </tr>
+                          <tr>
+                            <th>
+                              <h5>Incorrect Guesses:</h5>
+                            </th>
+                            <!-- need stat call here-->
+                            <td><%- userInfo.totalmistakes %></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- partial -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript">
+
+    function launchQuiz(selectObject){			
+      console.log(selectObject.id);
+      selectObject.form.action = "/quiz/" + selectObject.id;
+      selectObject.form.submit();
+    }	
+  
+    function launchStudy(selectObject){			
+      console.log(selectObject);
+      selectObject.form.action = "/cards/" + selectObject.id;
+      selectObject.form.submit();
+    }	
+  
+  </script>
+
+</body>
+
+</html>

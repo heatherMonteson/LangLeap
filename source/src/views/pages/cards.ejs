@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+
+     <!-- Profile icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="../resources/css/index.css" rel="stylesheet">
+    <link  href="../resources/css/flashcard.css" rel="stylesheet">
+
+    <title><%- page_title %></title>
+    <script>
+        var deck = <%- JSON.stringify(deck) %>;
+      </script>
+</head>
+<body onload="deckInit(deck)">
+    <%- include('../partials/user-navbar') %>
+        <br><br><br><br>
+<!-- 
+        <div class="container ">
+            <div class=" text-center">
+                <a class="btn btn-info font-weight-bold" href="/decks/create" role="button">+ Add to Deck</a>
+            </div>
+        </div> -->
+        <br><br><br>
+
+        <div class="container">
+        <ul class="list">
+            <!-- <li class="hide" onclick="cardClick(this)">
+                <div class="boxed flash-card">
+                    <div class="flash-card-inner">
+                        <div class="flash-card-front">
+                            <div class="card-face">
+                                <h1>Biblioteca</h1>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                        <div class="card-face">
+                            <h1>Library</h1> 
+                            <p>Use in sentence</p> 
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+            <br>
+
+            <div class="container controls">
+                <div class="text-center">
+                    <button type="button" class="btn btn-info" onclick="prev()">	&#x2190 </button>
+                    <button type="button" class="btn btn-info" onclick="cardFlip()">Show Answer</button>
+                    <button type="button" class="btn btn-info" onclick="next()">&#8594</button>
+                </div>
+            </div>
+            
+        
+<script src="../resources/js/flashcard.js"></script>
+<%- include('../partials/footer') %>

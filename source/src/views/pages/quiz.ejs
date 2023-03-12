@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+        <!-- Profile icons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link href="../resources/css/index.css" rel="stylesheet">
+      <link rel="stylesheet" href="../resources/css/flashcard.css">
+  
+      <title><%- page_title %></title>
+      <script>
+        var deck = <%-JSON.stringify(deck)%> 
+      </script>
+</head>
+            
+    <body class="center text-center" onload="quizInit(deck)">
+      <%- include('../partials/user-navbar') %>
+        <br><br><br>
+  
+  
+        <div class="container justify-content-center">
+              <ul class="list">
+                <li class="act" id="quizCard">
+                    <div class="boxed flash-card">
+                        <div class="flash-card-inner">
+                            <div class="flash-card-front">
+                                <div class="card-face">
+                                    <h1 id="quizFront"></h1>
+                                </div>
+                            </div>
+                            <div class="flash-card-back">
+                            <div class="card-face">
+                                <h1 id="quizBack"></h1> 
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>  
+  
+        <div class="container textInput">
+
+            <button class="button accentButtons" id="aButton">á</button>
+            <button class="button accentButtons" id="eButton">é </button>
+            <button class="button accentButtons" id="iButton">í </button>
+            <button class="button accentButtons" id="oButton">ó</button>
+            <button class="button accentButtons" id="nButton">ñ </button>
+            <button class="button accentButtons" id="uAccentButton">ú</button>
+            <button class="button accentButtons" id="uDiaersesisButton">ü</button>
+            
+            <div class="form-group row">
+                <input type="text" id="inputTranslation" spellcheck="false" name="inputbox" class="form-control" placeholder="" value ="" required>
+            </div>
+            <input type="button" class="btn btn-lg btn-primary" value="Check" onclick="checkInput()">
+        </div>
+      
+        <script src="../resources/js/quiz.js"></script>
+        <%- include('../partials/footer') %>

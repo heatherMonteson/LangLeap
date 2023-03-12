@@ -1,0 +1,17 @@
+
+#uploadLable{
+    text-align: left;
+}
+
+form{
+    font-family: cursive;
+}
+.card {
+    text-align: center;
+    margin: auto;
+    width: 600px;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 7px 30px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+}

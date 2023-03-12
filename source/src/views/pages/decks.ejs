@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+  <!-- Profile icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="../resources/css/index.css" rel="stylesheet">
+     <link rel="stylesheet" href="../resources/css/decks.css">
+
+    <title><%- page_title %></title>
+
+</head>
+<body>
+<%- include('../partials/user-navbar') %>
+
+<br><br><br><br><br>
+
+<div class="container">
+  <div>
+    <h1>My Decks
+      <a class="btn btn-light font-weight-bold" href="/decks/create" role="button">+ Make New Deck </a>
+    </h1>
+    </span>
+  </div>
+</div>
+
+<div>
+  <div class="container">
+    <br>
+              </div>
+    <div>
+            <%
+              if (default_decks) {
+                var i=0; 
+                var card = '';
+                card+='<div class="container"><div class="row text-center h-100">';
+                default_decks.forEach(function(decks){
+    
+                  if(i===3)
+                  {
+                    card+='</div></div>';
+                    card+='<div class="container"><div class="row text-center h-100">';
+                    i=0; 
+                  }
+                    card+='<div class="col-sm"><div class="container"><div class="card  mb-3 card-body h-10rem h-xl-20rem " style="max-width: 18rem;"> <div class="card-body"><h6 class="card-title center">'+decks.listname +' </h6><p></p><form class="form" action="" method="get"><button type="button" onclick="launchStudy(this)" class="btn btn-info" id=" '+decks.listid +' "> Study </button> <button type="button" onclick="launchQuiz(this)" class="btn btn-info" id=" '+decks.listid +' "> Quiz </button> </form> </div></div></div></div>';
+                  i++;
+    
+                }); %>
+                <%- card %>
+              <% } %>
+           </div>
+</div>
+
+<script type="text/javascript">
+
+	function launchQuiz(selectObject){			
+		console.log(selectObject.id);
+		selectObject.form.action = "/quiz/" + selectObject.id;
+		selectObject.form.submit();
+	}	
+
+  function launchStudy(selectObject){			
+		console.log(selectObject);
+		selectObject.form.action = "/cards/" + selectObject.id;
+		selectObject.form.submit();
+	}	
+
+</script>
+
+<%- include('../partials/footer') %>
