@@ -1,10 +1,6 @@
 # Lang Leap
 csci-3308-spring22-016-04
 
-### Heroku Link 
-Most recent launch 4/22/22
-https://langleap.herokuapp.com/
-
 ### Product Demo 
 https://drive.google.com/file/d/1lLo46Y3gqTwBvnK2QRnH8AICSi9NTYP2/view?usp=sharing
 
